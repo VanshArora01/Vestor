@@ -1,0 +1,226 @@
+{
+  "version": "v1",
+  "description": "Initial curated Invest asset universe for Vestor I3. Not a complete Indian market listing. Designed to be replaced/expanded by a later synchronization job. Only real, well-known instruments; ISINs included only when known.",
+  "assets": [
+    {
+      "id": "a1000000-0001-4000-8000-000000000001",
+      "asset_type": "stock",
+      "symbol": "HDFCBANK",
+      "exchange": "NSE",
+      "name": "HDFC Bank Ltd",
+      "provider_symbol": "HDFCBANK.NS",
+      "isin": "INE040A01034",
+      "active": true
+    },
+    {
+      "id": "a1000000-0001-4000-8000-000000000002",
+      "asset_type": "stock",
+      "symbol": "HDFCLIFE",
+      "exchange": "NSE",
+      "name": "HDFC Life Insurance Company Ltd",
+      "provider_symbol": "HDFCLIFE.NS",
+      "isin": "INE795G01014",
+      "active": true
+    },
+    {
+      "id": "a1000000-0001-4000-8000-000000000003",
+      "asset_type": "stock",
+      "symbol": "HDFCAMC",
+      "exchange": "NSE",
+      "name": "HDFC Asset Management Company Ltd",
+      "provider_symbol": "HDFCAMC.NS",
+      "isin": "INE127D01025",
+      "active": true
+    },
+    {
+      "id": "a1000000-0001-4000-8000-000000000004",
+      "asset_type": "stock",
+      "symbol": "RELIANCE",
+      "exchange": "NSE",
+      "name": "Reliance Industries Ltd",
+      "provider_symbol": "RELIANCE.NS",
+      "isin": "INE002A01018",
+      "active": true
+    },
+    {
+      "id": "a1000000-0001-4000-8000-000000000005",
+      "asset_type": "stock",
+      "symbol": "TCS",
+      "exchange": "NSE",
+      "name": "Tata Consultancy Services Ltd",
+      "provider_symbol": "TCS.NS",
+      "isin": "INE467B01029",
+      "active": true
+    },
+    {
+      "id": "a1000000-0001-4000-8000-000000000006",
+      "asset_type": "stock",
+      "symbol": "INFY",
+      "exchange": "NSE",
+      "name": "Infosys Ltd",
+      "provider_symbol": "INFY.NS",
+      "isin": "INE009A01021",
+      "active": true
+    },
+    {
+      "id": "a1000000-0001-4000-8000-000000000007",
+      "asset_type": "stock",
+      "symbol": "SBIN",
+      "exchange": "NSE",
+      "name": "State Bank of India",
+      "provider_symbol": "SBIN.NS",
+      "isin": "INE062A01020",
+      "active": true
+    },
+    {
+      "id": "a1000000-0001-4000-8000-000000000008",
+      "asset_type": "stock",
+      "symbol": "ITC",
+      "exchange": "NSE",
+      "name": "ITC Ltd",
+      "provider_symbol": "ITC.NS",
+      "isin": "INE154A01025",
+      "active": true
+    },
+    {
+      "id": "a1000000-0001-4000-8000-000000000009",
+      "asset_type": "stock",
+      "symbol": "ICICIBANK",
+      "exchange": "NSE",
+      "name": "ICICI Bank Ltd",
+      "provider_symbol": "ICICIBANK.NS",
+      "isin": "INE090A01021",
+      "active": true
+    },
+    {
+      "id": "a1000000-0001-4000-8000-00000000000a",
+      "asset_type": "stock",
+      "symbol": "AXISBANK",
+      "exchange": "NSE",
+      "name": "Axis Bank Ltd",
+      "provider_symbol": "AXISBANK.NS",
+      "isin": "INE238A01034",
+      "active": true
+    },
+    {
+      "id": "a1000000-0001-4000-8000-00000000000b",
+      "asset_type": "stock",
+      "symbol": "WIPRO",
+      "exchange": "NSE",
+      "name": "Wipro Ltd",
+      "provider_symbol": "WIPRO.NS",
+      "isin": "INE075A01022",
+      "active": true
+    },
+    {
+      "id": "a1000000-0001-4000-8000-00000000000c",
+      "asset_type": "stock",
+      "symbol": "BHARTIARTL",
+      "exchange": "NSE",
+      "name": "Bharti Airtel Ltd",
+      "provider_symbol": "BHARTIARTL.NS",
+      "isin": "INE397D01024",
+      "active": true
+    },
+    {
+      "id": "a1000000-0001-4000-8000-00000000000d",
+      "asset_type": "stock",
+      "symbol": "RELIANCE",
+      "exchange": "BSE",
+      "name": "Reliance Industries Ltd",
+      "provider_symbol": "RELIANCE.BO",
+      "isin": "INE002A01018",
+      "active": true
+    },
+    {
+      "id": "a1000000-0001-4000-8000-00000000000e",
+      "asset_type": "stock",
+      "symbol": "OLDCO",
+      "exchange": "NSE",
+      "name": "Inactive Demo Equity Ltd",
+      "provider_symbol": "OLDCO.NS",
+      "isin": null,
+      "active": false
+    },
+    {
+      "id": "a1000000-0002-4000-8000-000000000001",
+      "asset_type": "etf",
+      "symbol": "NIFTYBEES",
+      "exchange": "NSE",
+      "name": "Nippon India ETF Nifty BeES",
+      "provider_symbol": "NIFTYBEES.NS",
+      "isin": "INE590L01019",
+      "active": true
+    },
+    {
+      "id": "a1000000-0002-4000-8000-000000000002",
+      "asset_type": "etf",
+      "symbol": "BANKBEES",
+      "exchange": "NSE",
+      "name": "Nippon India ETF Bank BeES",
+      "provider_symbol": "BANKBEES.NS",
+      "isin": null,
+      "active": true
+    },
+    {
+      "id": "a1000000-0002-4000-8000-000000000003",
+      "asset_type": "etf",
+      "symbol": "GOLDBEES",
+      "exchange": "NSE",
+      "name": "Nippon India ETF Gold BeES",
+      "provider_symbol": "GOLDBEES.NS",
+      "isin": null,
+      "active": true
+    },
+    {
+      "id": "a1000000-0003-4000-8000-000000000001",
+      "asset_type": "mutual_fund",
+      "symbol": "PPFAS-FLEXI-DG",
+      "exchange": null,
+      "name": "Parag Parikh Flexi Cap Fund - Direct Growth",
+      "provider_symbol": "122639",
+      "isin": null,
+      "active": true
+    },
+    {
+      "id": "a1000000-0003-4000-8000-000000000002",
+      "asset_type": "mutual_fund",
+      "symbol": "PPFAS-FLEXI-RG",
+      "exchange": null,
+      "name": "Parag Parikh Flexi Cap Fund - Regular Growth",
+      "provider_symbol": "122640",
+      "isin": null,
+      "active": true
+    },
+    {
+      "id": "a1000000-0003-4000-8000-000000000003",
+      "asset_type": "mutual_fund",
+      "symbol": "UTI-NIFTY-DG",
+      "exchange": null,
+      "name": "UTI Nifty 50 Index Fund - Direct Growth",
+      "provider_symbol": "120716",
+      "isin": null,
+      "active": true
+    },
+    {
+      "id": "a1000000-0003-4000-8000-000000000004",
+      "asset_type": "mutual_fund",
+      "symbol": "MIRAE-LARGEMID-DG",
+      "exchange": null,
+      "name": "Mirae Asset Large & Midcap Fund - Direct Growth",
+      "provider_symbol": "118834",
+      "isin": null,
+      "active": true
+    },
+    {
+      "id": "a1000000-0003-4000-8000-000000000005",
+      "asset_type": "mutual_fund",
+      "symbol": "AXIS-BLUECHIP-DG",
+      "exchange": null,
+      "name": "Axis Bluechip Fund - Direct Growth",
+      "provider_symbol": "120503",
+      "isin": null,
+      "active": true
+    }
+  ]
+}

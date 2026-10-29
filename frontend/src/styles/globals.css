@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* FinAI Exact Palette */
+  --bg-app: #DCE3DE;          /* Cool sage-mint surrounding outer frame */
+  --bg-canvas: #EFF3F0;       /* Light pale sage canvas */
+  --card-surface: #FFFFFF;    /* Crisp clean white cards */
+  --card-dark: #121A15;       /* Solid obsidian black card */
+  --card-dark-sub: #1A241E;
+  
+  --border-light: rgba(215, 226, 219, 0.8);
+  --border-dark: rgba(255, 255, 255, 0.08);
+
+  --text-main: #141C16;       /* Deep obsidian black */
+  --text-muted: #6C7A70;      /* Calm muted herbal grey */
+  --text-inverse: #FFFFFF;    /* Clean white */
+  
+  --brand-green: #22C55E;     /* Vibrant energetic neon green */
+  --brand-green-hover: #16A34A;
+  --brand-green-soft: #DCFCE7;
+  --brand-dark-pill: #121A15;
+
+  --positive: #16A34A;
+  --negative: #EF4444;
+
+  font-family: "DM Sans", system-ui, -apple-system, sans-serif;
+  color: var(--text-main);
+  background-color: var(--bg-app);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+#root {
+  min-height: 100vh;
+  background-color: var(--bg-app);
+}
+
+@layer components {
+  .lesson-primary-action {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#0F766E] px-5 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#115E59] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F766E] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-slate-300 disabled:text-slate-600 disabled:shadow-none;
+  }
+
+  .lesson-secondary-action {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-slate-800 transition-colors hover:border-slate-400 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F766E] focus-visible:ring-offset-2;
+  }
+
+  .lesson-action-rail {
+    @apply sticky bottom-2 z-10 -mx-2 mt-auto flex flex-wrap items-center justify-end gap-2 rounded-2xl border border-slate-200 bg-white p-3 shadow-md;
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.landing-nav-link {
+  @apply rounded-sm text-[11px] font-semibold text-[#52645A] transition-colors hover:text-[#173A2A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F766E] focus-visible:ring-offset-4 focus-visible:ring-offset-[#F5F2EA];
+}
+
+.landing-page {
+  font-variant-numeric: lining-nums proportional-nums;
+  scrollbar-color: #647c65 #e7e8dd;
+}
+
+.landing-page ::selection {
+  color: #10251d;
+  background: #d7f27b;
+}
+
+.landing-hero-grid {
+  background-image: linear-gradient(to right, rgba(213, 231, 208, 0.15) 1px, transparent 1px), linear-gradient(to bottom, rgba(213, 231, 208, 0.15) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to right, transparent 0%, black 35%, black 100%);
+}
+
+.landing-finale {
+  background-image: repeating-linear-gradient(135deg, transparent 0 17px, rgba(16, 37, 29, 0.035) 17px 18px);
+}
+
+.landing-mobile-link {
+  @apply flex min-h-11 items-center border-b border-[#E0E3DA] text-xs font-semibold text-[#355342] transition-colors hover:text-[#10231B] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F766E];
+}
+
+.footer-link {
+  @apply w-fit rounded-sm text-[#C1D0C4] transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B9E7C7] focus-visible:ring-offset-4 focus-visible:ring-offset-[#10231B];
+}
+
+.landing-range {
+  accent-color: #397957;
+  min-height: 20px;
+}
+
+.landing-chart-line {
+  stroke-dasharray: 700;
+  stroke-dashoffset: 700;
+  animation: landing-chart-draw 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+}
+
+@keyframes landing-chart-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-chart-line {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Custom sleek scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(108, 122, 112, 0.25);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(108, 122, 112, 0.45);
+}

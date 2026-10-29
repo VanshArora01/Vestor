@@ -1,0 +1,229 @@
+# DATA_MODEL.md — Vestor
+
+Single source of truth for the schema. Before adding a table or column anywhere, check this file first — if the entity already exists here, extend it, don't recreate it (see DECISIONS.md — Emergency Fund).
+
+Each table is tagged with the phase it belongs to (ROADMAP.md). Do not build a later-phase table early just because it's easy — schema for unbuilt features tends to drift from what actually gets used.
+
+---
+
+## Phase 1 tables
+
+### users
+| column | type | notes |
+|---|---|---|
+| id | uuid, PK | |
+| email | text, unique | |
+| password_hash | text | |
+| name | text | |
+| created_at | timestamp | |
+
+### categories
+| column | type | notes |
+|---|---|---|
+| id | uuid, PK | |
+| name | text | |
+| type | enum(income, expense) | |
+| is_custom | boolean | false = predefined/global, true = user-created |
+| user_id | uuid, FK -> users, nullable | null for predefined categories |
+
+Predefined categories are seed data, shared across all users. Custom categories are scoped to `user_id`.
+
+### transactions
+| column | type | notes |
+|---|---|---|
+| id | uuid, PK | |
+| user_id | uuid, FK -> users | |
+| category_id | uuid, FK -> categories | |
+| type | enum(income, expense) | |
+| amount | numeric | INR only, no currency column needed |
+| description | text | |
+| date | date | |
+| created_at | timestamp | |
+
+One unified table for both income and expenses — a `type` column, not two separate tables. Avoids duplicating the same shape twice.
+
+### budgets
+| column | type | notes |
+|---|---|---|
+| id | uuid, PK | |
+| user_id | uuid, FK -> users | |
+| category_id | uuid, FK -> categories | |
+| monthly_limit | numeric | |
+| month | integer | |
+| year | integer | |
+
+### debts
+| column | type | notes |
+|---|---|---|
+| id | uuid, PK | |
+| user_id | uuid, FK -> users | |
+| name | text | |
+| debt_type | enum(personal_loan, credit_card, education_loan, other) | |
+| principal_amount | numeric | |
+| interest_rate | numeric | |
+| emi_amount | numeric | |
+| start_date | date | |
+| tenure_months | integer | |
+| remaining_balance | numeric | updated as payments logged |
+
+### goals
+| column | type | notes |
+|---|---|---|
+| id | uuid, PK | |
+| user_id | uuid, FK -> users | |
+| name | text | |
+| goal_type | enum(general, emergency_fund) | **this is the single source of truth for Emergency Fund** — Finance module reads this, never stores its own copy |
+| target_amount | numeric | |
+| current_amount | numeric | |
+| deadline | date, nullable | |
+| created_at | timestamp | |
+
+### goal_contributions
+| column | type | notes |
+|---|---|---|
+| id | uuid, PK | |
+| goal_id | uuid, FK -> goals | |
+| amount | numeric | |
+| date | date | |
+| source | enum(manual, transfer) | |
+
+---
+
+## Phase 2 tables (Academy)
+
+### academy_modules
+Seed data, authored by you — not user-generated.
+| column | type | notes |
+|---|---|---|
+| id | uuid, PK | |
+| tier | integer | 1-6, per curriculum |
+| title | text | |
+| order_index | integer | |
+| prerequisite_id | uuid, FK -> academy_modules, nullable | drives unlock logic |
+| color_category | text | for path UI grouping |
+| is_optional | boolean | flags stretch modules (e.g. technical analysis, derivatives) |
+
+### quiz_questions
+| column | type | notes |
+|---|---|---|
+| id | uuid, PK | |
+| module_id | uuid, FK -> academy_modules | |
+| question | text | |
+| options | jsonb | array of choice strings |
+| correct_index | integer | |
+| difficulty | enum(easy, medium, hard) | |
+
+### user_academy_progress
+| column | type | notes |
+|---|---|---|
+| id | uuid, PK | |
+| user_id | uuid, FK -> users | |
+| module_id | uuid, FK -> academy_modules | |
+| status | enum(locked, unlocked, completed) | |
+| completed_at | timestamp, nullable | |
+| quiz_score | numeric, nullable | |
+| attempts | integer | |
+
+### generated_lessons
+Cache layer — don't regenerate identical AI content on every page load.
+| column | type | notes |
+|---|---|---|
+| id | uuid, PK | |
+| user_id | uuid, FK -> users | |
+| module_id | uuid, FK -> academy_modules | |
+| content_snapshot_hash | text | hash of the financial data that fed the prompt |
+| generated_text | text | |
+| generated_at | timestamp | |
+
+### user_gamification
+| column | type | notes |
+|---|---|---|
+| user_id | uuid, PK, FK -> users | |
+| xp | integer | |
+| level | integer | |
+| current_streak | integer | |
+| longest_streak | integer | |
+| last_active_date | date | |
+
+### badges / user_badges
+| table | columns |
+|---|---|
+| badges | id, code, name, description |
+| user_badges | id, user_id (FK), badge_id (FK), earned_at |
+
+---
+
+## Phase 3 tables (Portfolio + Advisor)
+
+### portfolio_holdings
+| column | type | notes |
+|---|---|---|
+| id | uuid, PK | |
+| user_id | uuid, FK -> users | |
+| asset_type | enum(stock, mutual_fund, etf, gold, fd, ppf, nps) | |
+| symbol | text, nullable | null for non-market assets (FD, PPF, NPS) |
+| quantity | numeric | |
+| purchase_price | numeric | |
+| purchase_date | date | |
+| current_price | numeric, nullable | cached, refreshed by Celery job for market-priced assets only |
+| last_price_update | timestamp, nullable | |
+
+### price_cache
+Shared cache so multiple users holding the same symbol don't each trigger a separate API call.
+| column | type | notes |
+|---|---|---|
+| symbol | text, PK | |
+| asset_type | enum(stock, mutual_fund) | |
+| price | numeric | |
+| updated_at | timestamp | |
+
+### advisor_conversations / advisor_messages
+| table | columns |
+|---|---|
+| advisor_conversations | id, user_id (FK), created_at |
+| advisor_messages | id, conversation_id (FK), role(user/assistant), content, created_at |
+
+---
+
+## Phase 4 tables (Market, notifications, subscriptions)
+
+### market_news_cache
+| column | type | notes |
+|---|---|---|
+| id | uuid, PK | |
+| headline | text | |
+| summary | text | |
+| source_url | text | |
+| category | text | |
+| published_at | timestamp | |
+| fetched_at | timestamp | |
+
+### notifications
+| column | type | notes |
+|---|---|---|
+| id | uuid, PK | |
+| user_id | uuid, FK -> users | |
+| notif_type | enum(streak, budget_alert, goal_deadline) | |
+| message | text | |
+| channel | enum(email) | web push deferred, see DECISIONS.md |
+| status | enum(pending, sent, failed) | |
+| created_at | timestamp | |
+
+### subscriptions
+| column | type | notes |
+|---|---|---|
+| id | uuid, PK | |
+| user_id | uuid, FK -> users | |
+| plan | text | scope not finalized — see DECISIONS.md |
+| status | enum(active, cancelled, expired) | |
+| started_at | timestamp | |
+| expires_at | timestamp, nullable | |
+| razorpay_subscription_id | text, nullable | |
+
+---
+
+## Cross-cutting notes
+
+- **Financial Context Service** doesn't own its own tables — it reads/aggregates from `transactions`, `goals`, `portfolio_holdings`, and `user_academy_progress` at query time (or via a materialized view later if performance demands it). Don't create a separate "aggregated_data" table that duplicates what's computable from source tables — that's the exact duplication this schema is designed to avoid.
+- **Every table above has `user_id`** except global seed data (`categories` where `is_custom = false`, `academy_modules`, `quiz_questions`, `badges`) — reinforces the single-user isolated profile decision.
+- Add new tables here before creating them in migrations. If a migration needs a table not listed here, stop and add it to this doc first — that's the whole point of this file.
