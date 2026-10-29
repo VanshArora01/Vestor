@@ -329,3 +329,7 @@ AI investment advisor, RAG recommendations, XIRR, tax engine, sell transactions,
 - Redis did not respond to the read-only ping from this environment. Current local frontend API and backend CORS settings are localhost-only and need production values before a public deployment.
 - Added `frontend/vercel.json` SPA rewrite so React Router deep links resolve on Vercel, and broadened `.gitignore` to ignore `.env*` files while allowing the safe `.env.example` templates.
 - No Render deployment manifest or Git metadata is present in this workspace; production deployment and repository history remain unverified. Local `.env` files are ignored, but prior credential history cannot be checked without Git metadata.
+
+### PostgreSQL driver dependency alignment (2026-10-29)
+
+- Added the Psycopg 3 binary extra required by Render's `postgresql+psycopg` SQLAlchemy URL. Kept `psycopg2-binary` for generic `postgresql://` URLs still used by local settings; application and Alembic URLs remain environment-driven and unchanged. No database or migration was modified.
