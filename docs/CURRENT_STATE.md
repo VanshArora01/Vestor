@@ -326,7 +326,7 @@ AI investment advisor, RAG recommendations, XIRR, tax engine, sell transactions,
 
 - Frontend production build passes (`npm run build`). Existing Vite output includes a 1.5 MB minified JS chunk; this is a performance warning, not a failed build.
 - Backend dependency manifest is present, settings validate, `uvicorn app.main:app` starts and serves OpenAPI, and configured PostgreSQL connectivity succeeds. The database is at Alembic head `012_paper_trading`.
-- Redis did not respond to the read-only ping from this environment. Current local frontend API and backend CORS settings are localhost-only and need production values before a public deployment.
+- Redis did not respond to the read-only ping from this environment. Backend CORS allows the deployed Render frontend while retaining localhost development origins. Production frontend builds default to the deployed Render API when `VITE_API_BASE_URL` is unset; the API client appends `/api/v1`.
 - Added `frontend/vercel.json` SPA rewrite so React Router deep links resolve on Vercel, and broadened `.gitignore` to ignore `.env*` files while allowing the safe `.env.example` templates.
 - No Render deployment manifest or Git metadata is present in this workspace; production deployment and repository history remain unverified. Local `.env` files are ignored, but prior credential history cannot be checked without Git metadata.
 

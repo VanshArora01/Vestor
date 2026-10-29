@@ -5,6 +5,10 @@ const required = (value: string | undefined, name: string): string => {
   return value;
 };
 
+const configuredApiBaseUrl =
+  import.meta.env.VITE_API_BASE_URL ||
+  (import.meta.env.PROD ? "https://vestor-1.onrender.com" : undefined);
+
 export const env = {
-  apiBaseUrl: required(import.meta.env.VITE_API_BASE_URL, "VITE_API_BASE_URL"),
+  apiBaseUrl: required(configuredApiBaseUrl, "VITE_API_BASE_URL").replace(/\/+$/, ""),
 };

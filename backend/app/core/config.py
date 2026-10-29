@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     database_url: str
     secret_key: str
     redis_url: str
-    cors_origins: str = "http://localhost:5173"
+    cors_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
     access_token_expire_days: int = 7
     database_echo: bool = False
 
@@ -56,7 +56,8 @@ class Settings(BaseSettings):
 
     @property
     def cors_origins_list(self) -> list[str]:
-        return [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]
+        configured_origins = [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]
+        return list(dict.fromkeys([*configured_origins, "https://vestor-front.onrender.com"]))
 
 
 @lru_cache
